@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\Admin\ApplicationsController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +21,9 @@ Route::prefix('admin')->group(function(){
                 Route::resource($name, $class);
             }
         }
+
+        Route::post('applications/{id}/status', [ApplicationsController::class, 'status'])
+            ->name('applications.status');
 
     });
 });

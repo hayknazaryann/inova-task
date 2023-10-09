@@ -2,64 +2,61 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\StatusesEnum;
 use App\Http\Controllers\Controller;
+use App\Models\Application;
+use App\Repositories\Interfaces\ApplicationInterface;
 use Illuminate\Http\Request;
 
 class ApplicationsController extends Controller
 {
+    protected $applicationRepository;
+    public function __construct(ApplicationInterface $applicationRepository)
+    {
+        $this->applicationRepository = $applicationRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('admin.applications.index', [
+            'applications' => $this->applicationRepository->paginate()
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function status(Request $request, $id)
     {
-        //
-    }
+        try {
+            $status = $request->input('status');
+            if (!in_array($status, array_keys(StatusesEnum::all()))) {
+                return response()->json([
+                    'success' => false,
+                    'error' => 'Wrong status'
+                ], 404);
+            }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+            if ($application = Application::query()->find($id)) {
+                $application->update([
+                    'status' => $status
+                ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+                return response()->json([
+                    'success' => true,
+                    'error' => 'Status changed'
+                ], 200);
+            }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+            return response()->json([
+                'success' => false,
+                'error' => 'Application not found'
+            ], 404);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Something went wrong'
+            ], 400);
+        }
     }
 }

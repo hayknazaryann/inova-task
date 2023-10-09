@@ -21,12 +21,25 @@
                     </form>
                 </div>
                 <div class="applications-list">
-                    <div class="application-items">
-                        @for($i=1; $i<=10; $i++)
-                            <div class="application-item">
-                                {{__('Application ' . $i)}}
-                            </div>
-                        @endfor
+                    <div class="application-search">
+                        <div class="input-content">
+                            <input type="text" name="keyword" id="keyword" placeholder="Search by text and status">
+                        </div>
+                        <div class="status-content">
+                            <select class="form-select status-select" id="status">
+                                <option value="">Status</option>
+                                @forelse(\App\Enums\StatusesEnum::all() as $key => $text)
+                                    <option value="{{$key}}">
+                                        {{$text}}
+                                    </option>
+                                @empty
+                                @endforelse
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="application-items" data-url="{{route('applications.load')}}">
+
                     </div>
                 </div>
             </div>

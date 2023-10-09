@@ -23,7 +23,6 @@
     <!-- Vendor CSS Files -->
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="{{ asset('dashboard/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('dashboard/themes/dark.css') }}" rel="stylesheet">
@@ -52,7 +51,6 @@
 <!-- Template Main JS File -->
 <script src="{{ asset('dashboard/js/plugins/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('dashboard/js/plugins/sweetalert2.all.js') }}"></script>
-<script src="{{ asset('vendor/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ asset('js/general.js') }}"></script>
 <script src="{{ asset('dashboard/js/main.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

@@ -40,11 +40,6 @@ main.main-content {
     min-height: 100vh;
 }
 
-.container {
-    width: 1024px;
-    margin: 0 auto;
-}
-
 .site-navbar {
     display: flex;
     padding: 12px 0;
@@ -54,7 +49,6 @@ main.main-content {
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #808080;
-    padding: 10px;
 }
 
 .site-navbar .hamburger {

@@ -1,13 +1,6 @@
 $(document).ready(function () {
-
+    loadItems();
 })
-    .on('click', '#new-note', function () {
-        $('textarea#note').val('')
-    })
-    .on('click', '#import', function () {
-        document.getElementById('import-file').click();
-
-    })
     .on('click', '#send', function (e) {
         e.preventDefault();
         const form = $('#applications-form'),
@@ -22,8 +15,7 @@ $(document).ready(function () {
             dataType: 'json',
         }).done(function (response) {
             if (response.success === true) {
-                $('textarea#text').val('');
-                $('.application-items').prepend(response.application);
+                loadItems(true)
             }
         }).fail(function (error) {
             let response = JSON.parse(error.responseText);
@@ -42,7 +34,7 @@ $(document).ready(function () {
             }
         })
     })
-    .on('click', '.view-application', function (e) {
+    .on('click', '.edit-item', function (e) {
         e.preventDefault();
         const elm = $(this),
             url = elm.attr('href');
@@ -54,9 +46,38 @@ $(document).ready(function () {
             dataType: 'json',
         }).done(function (response) {
             if (response.success === true) {
-                $('textarea#note').val(response.text);
+                console.log(response);
+                $('textarea#text').val(response.data.text);
             }
         }).fail(function (error) {
 
         })
     })
+    .on('keyup', '.application-search input#keyword', function () {
+        loadItems(true);
+    })
+    .on('change', '.application-search select#status', function () {
+        loadItems(true);
+    })
+
+function loadItems(newItem = false) {
+    $.ajax({
+        url: $('.application-items').data('url'),
+        method: 'post',
+        data: {
+            keyword: $('input#keyword').val(),
+            status: $('select#status').val()
+        },
+        dataType: 'json',
+    }).done(function (response) {
+        if (response.success === true) {
+            if (newItem) {
+                $('.application-items').html(response.view);
+                $('textarea#text').val('');
+            } else  {
+                $('.application-items').append(response.view);
+            }
+
+        }
+    })
+}
