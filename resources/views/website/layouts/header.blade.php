@@ -1,12 +1,12 @@
 <header class="header">
     <nav class="site-navbar">
         <div class="container">
-            <a href="{{ route('home') }}" class="nav-logo">Notepad</a>
+            <a href="{{ route('home') }}" class="nav-logo">{{config('app.name')}}</a>
             <ul class="nav-menu">
 
                 @auth
                     <li class="nav-item">
-                        <a href="{{ route('applications') }}" class="nav-link">Notepad</a>
+                        <a href="{{ route('applications') }}" class="nav-link">Applications</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}"

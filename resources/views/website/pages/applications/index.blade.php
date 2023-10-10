@@ -7,6 +7,7 @@
             <div class="page-row">
                 <div class="form-content">
                     <form action="{{route('applications.store')}}" id="applications-form">
+                        <input type="hidden" name="id" id="id" value="">
                         <div class="textarea-content">
                             <textarea
                                 name="text" id="text"

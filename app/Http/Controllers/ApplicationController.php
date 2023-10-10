@@ -30,21 +30,7 @@ class ApplicationController extends Controller
     public function load(Request $request)
     {
         try {
-            $user = User::find(Auth::id());
-            $applications = $user->applications()->orderByDesc('id');
-
-            $keyword = $request->input('keyword');
-            if (!empty($keyword)) {
-                $applications = $applications->where('text', 'like', '%' . $keyword . '%');
-            }
-
-            $status = $request->input('status');
-            if (!is_null($status)) {
-                $applications = $applications->where(['status' => $status]);
-            }
-
-            $applications = $applications->offset(0)->limit(10)->get();
-
+            $applications = $this->applicationRepository->search($request);
             $showBtn = count($applications) === 10;
             $view = view('website.pages.partials.application-items', [
                 'data' => $applications,

@@ -46,8 +46,8 @@ $(document).ready(function () {
             dataType: 'json',
         }).done(function (response) {
             if (response.success === true) {
-                console.log(response);
                 $('textarea#text').val(response.data.text);
+                $('input#id').val(response.data.id);
             }
         }).fail(function (error) {
 
